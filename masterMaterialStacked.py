@@ -4,6 +4,7 @@ AssetTools = unreal.AssetToolsHelpers.get_asset_tools()
 MaterialEditLibrary = unreal.MaterialEditingLibrary
 EditorAssetLibrary = unreal.EditorAssetLibrary
 
+
 #Creates the master material in the specified folder within the UE5 project
 masterMaterial = AssetTools.create_asset("M_MasterStacked", "/Game/Materials/MasterMaterials", unreal.Material, unreal.MaterialFactoryNew())
 
