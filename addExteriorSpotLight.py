@@ -34,7 +34,7 @@ lightComponent.set_editor_property('outer_cone_angle', 45.0)
 lightComponent.set_editor_property('attenuation_radius', 500)
 lightComponent.set_editor_property('intensity', 50)
 lightComponent.set_editor_property('use_temperature', True)
-lightComponent.set_editor_property('temperature', 4000)
+lightComponent.set_editor_property('temperature', 5600)
 
 # #Save changes
 # levelSubSys.save_current_level()
