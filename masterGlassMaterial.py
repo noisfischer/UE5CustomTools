@@ -5,61 +5,57 @@ MaterialEditLibrary = unreal.MaterialEditingLibrary
 EditorAssetLibrary = unreal.EditorAssetLibrary
 
 #Creates the master material in the specified folder within the UE5 project
-masterMaterial = AssetTools.create_asset("M_Master", "/Game/Materials/MasterMaterials", unreal.Material, unreal.MaterialFactoryNew())
+masterMaterial = AssetTools.create_asset("M_Glass", "/Game/Materials/MasterMaterials", unreal.Material, unreal.MaterialFactoryNew())
 
-#Create 2D Texture Parameter, Connect to Base Color pin of Output
-baseColorTextureParam = MaterialEditLibrary.create_material_expression(masterMaterial, unreal.MaterialExpressionTextureSampleParameter, -500, -900)
-baseColorTextureParam.set_editor_property("Parameter_Name", "Color")
-MaterialEditLibrary.connect_material_property(baseColorTextureParam, "RGB", unreal.MaterialProperty.MP_BASE_COLOR)
+#Editable Base Color
+colorParam = MaterialEditLibrary.create_material_expression(masterMaterial, unreal.MaterialExpressionVectorParameter, -900, 0)
+colorParam.set_editor_property("Parameter_Name", "Base Color")
+colorParam.set_editor_property("Default_Value", (1.0, 1.0, 1.0, 1.0))
+MaterialEditLibrary.connect_material_property(colorParam, "",unreal.MaterialProperty.MP_BASE_COLOR)
 
-#Create 2D Texture Parameter, Connect to Roughness pin of Output
-roughnessTextureParam = MaterialEditLibrary.create_material_expression(masterMaterial, unreal.MaterialExpressionTextureSampleParameter, -500, -100)
-roughnessTextureParam.set_editor_property("Parameter_Name", "Roughness")
-MaterialEditLibrary.connect_material_property(roughnessTextureParam, "RGB", unreal.MaterialProperty.MP_ROUGHNESS)
-
-#Create 2D Texture Parameter, Connect to Metallic pin of Output
-metallicTextureParam = MaterialEditLibrary.create_material_expression(masterMaterial, unreal.MaterialExpressionTextureSampleParameter, -500, -600)
-metallicTextureParam.set_editor_property("Parameter_Name", "Metallic")
-MaterialEditLibrary.connect_material_property(metallicTextureParam, "RGB", unreal.MaterialProperty.MP_METALLIC)
-
-#Create Constant Value for Specular, Connect to Specular pin of Output
+#Create Scalar Parameter for Specular, Connect to Specular pin of Output
 specularParam = MaterialEditLibrary.create_material_expression(masterMaterial, unreal.MaterialExpressionScalarParameter, -500, -300)
-specularParam.set_editor_property("Parameter_Name", "Specular Intensity")
-specularParam.set_editor_property("Default_Value", 0.5)
+specularParam.set_editor_property("Parameter_Name", "Specular")
+specularParam.set_editor_property("Default_Value", 10)
 MaterialEditLibrary.connect_material_property(specularParam, "", unreal.MaterialProperty.MP_SPECULAR)
 
-#Create 2D Texture Parameter, Connect to Normal pin of Output
-normalTextureParam = MaterialEditLibrary.create_material_expression(masterMaterial, unreal.MaterialExpressionTextureSampleParameter, -500, 500)
-normalTextureParam.set_editor_property("Parameter_Name", "Normal")
-MaterialEditLibrary.connect_material_property(normalTextureParam, "RGB", unreal.MaterialProperty.MP_NORMAL)
+#Create Scalar Parameter for Roughness
+roughnessParam = MaterialEditLibrary.create_material_expression(masterMaterial, unreal.MaterialExpressionScalarParameter, -500, -300)
+roughnessParam.set_editor_property("Parameter_Name", "Roughness")
+roughnessParam.set_editor_property("Default_Value", 0)
+MaterialEditLibrary.connect_material_property(roughnessParam, "", unreal.MaterialProperty.MP_ROUGHNESS)
 
-#Create 2D Texture Parameter, Connect to AO pin of Output
-aoTextureParam = MaterialEditLibrary.create_material_expression(masterMaterial, unreal.MaterialExpressionTextureSampleParameter, -500, 800)
-aoTextureParam.set_editor_property("Parameter_Name", "AO")
-MaterialEditLibrary.connect_material_property(aoTextureParam, "RGB", unreal.MaterialProperty.MP_AMBIENT_OCCLUSION)
+#Create Scalar Parameter for Opacity
+opacityParam = MaterialEditLibrary.create_material_expression(masterMaterial, unreal.MaterialExpressionScalarParameter, -500, -300)
+opacityParam.set_editor_property("Parameter_Name", "Opacity")
+opacityParam.set_editor_property("Default_Value", .5)
+MaterialEditLibrary.connect_material_property(opacityParam, "", unreal.MaterialProperty.MP_OPACITY)
 
-#Create On/Off Switch for Emissive Color and Connect to Emissive Color Output
-switchOnOff = MaterialEditLibrary.create_material_expression(masterMaterial, unreal.MaterialExpressionStaticSwitchParameter, -500, 300)
-switchOnOff.set_editor_property("Parameter_Name", "On/Off")
-MaterialEditLibrary.connect_material_property(switchOnOff, "", unreal.MaterialProperty.MP_EMISSIVE_COLOR)
+#Create Lerp Node
+lerpNode = MaterialEditLibrary.create_material_expression(masterMaterial, unreal.MaterialExpressionLinearInterpolate, -500, -600)
+MaterialEditLibrary.connect_material_property(lerpNode, "", unreal.MaterialProperty.MP_REFRACTION)
 
-#Create a Constant at 0 that Activates when Switch is Off. Connect to False of Switch
-offParam = MaterialEditLibrary.create_material_expression(masterMaterial, unreal.MaterialExpressionConstant, -700, 400)
-MaterialEditLibrary.connect_material_expressions(offParam, "", switchOnOff, "False")
+#Create a constant value
+constantNode = MaterialEditLibrary.create_material_expression(masterMaterial, unreal.MaterialExpressionConstant, -500, -700)
+MaterialEditLibrary.connect_material_expressions(constantNode, "", lerpNode, "A")
 
-#Create a Vector Parameter and Scalar Parameter that are Combined using a Multiply Node and Connect to True of Switch
-multiplyNode = MaterialEditLibrary.create_material_expression(masterMaterial, unreal.MaterialExpressionMultiply, -700, 150)
-MaterialEditLibrary.connect_material_expressions(multiplyNode, "", switchOnOff, "True")
+#Create Scalar Parameter for Refraction
+refractionParam = MaterialEditLibrary.create_material_expression(masterMaterial, unreal.MaterialExpressionScalarParameter, -500, -800)
+refractionParam.set_editor_property("Parameter_Name", "Roughness Intensity")
+refractionParam.set_editor_property("Default_Value", 1.4)
+MaterialEditLibrary.connect_material_expressions(refractionParam, "", lerpNode, "B")
 
-emissiveColorParam = MaterialEditLibrary.create_material_expression(masterMaterial, unreal.MaterialExpressionVectorParameter, -900, 0)
-emissiveColorParam.set_editor_property("Parameter_Name", "Emissive Color")
-emissiveColorParam.set_editor_property("Default_Value", (1.0, 1.0, 1.0, 1.0))
-MaterialEditLibrary.connect_material_expressions(emissiveColorParam, "", multiplyNode, "A")
+#Create Fresnel Node
+fresnel = MaterialEditLibrary.create_material_expression(masterMaterial, unreal.MaterialExpressionFresnel, -500, -1000)
+MaterialEditLibrary.connect_material_expressions(fresnel, "", lerpNode, "Alpha")
 
-emissiveIntensityParam = MaterialEditLibrary.create_material_expression(masterMaterial, unreal.MaterialExpressionScalarParameter, -900, 250)
-emissiveIntensityParam.set_editor_property("Parameter_Name", "Emissive Intensity")
-emissiveIntensityParam.set_editor_property("Default_Value", 1.0)
-MaterialEditLibrary.connect_material_expressions(emissiveIntensityParam, "", multiplyNode, "B")
+#Create Scalar Parameter for Fresnel Falloff
+fresnelFalloffParam = MaterialEditLibrary.create_material_expression(masterMaterial, unreal.MaterialExpressionScalarParameter, -500, -1200)
+fresnelFalloffParam.set_editor_property("Parameter_Name", "Fresnel Falloff")
+fresnelFalloffParam.set_editor_property("Default_Value", 10)
+MaterialEditLibrary.connect_material_property(fresnelFalloffParam, "", fresnel, "")
 
 #Save Material
-EditorAssetLibrary.save_asset("/Game/Materials/MasterMaterials/M_Master", True)
+EditorAssetLibrary.save_asset("/Game/Materials/MasterMaterials/M_Glass", True)
+
+print("Change material blend mode to Translucent and Lighting Mode to Surface Translucency Volume")
