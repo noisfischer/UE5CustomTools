@@ -20,7 +20,7 @@ distance = 500
 spawnLocation = cameraLocation + cameraDirection * distance
 
 # Get Blueprint class
-blueprint = unreal.EditorAssetLibrary.load_asset('/Game/Blueprints/BP_Turret')
+blueprint = unreal.EditorAssetLibrary.load_asset('/Game/Blueprints/Turret/BP_Turret')
 blueprint_class = unreal.load_class(None, blueprint.get_path_name())
 
 #Spawn the actor
