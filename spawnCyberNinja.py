@@ -20,7 +20,7 @@ distance = 500
 spawnLocation = cameraLocation + cameraDirection * distance
 
 # Get Blueprint class
-blueprint = unreal.EditorAssetLibrary.load_asset('/Game/Blueprints/EnemyAI/EnemyBase/BP_EnemyBase')
+blueprint = unreal.EditorAssetLibrary.load_asset('/Game/EnemyAI/EnemyBase/BP_EnemyBase')
 blueprint_class = unreal.load_class(None, blueprint.get_path_name())
 
 #Spawn the actor
