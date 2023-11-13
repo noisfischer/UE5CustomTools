@@ -20,11 +20,11 @@ distance = 500
 spawnLocation = cameraLocation + cameraDirection * distance
 
 # Get Blueprint class
-blueprint = unreal.EditorAssetLibrary.load_asset('/Game/Blueprints/Turret/BP_GroundedTurret')
+blueprint = unreal.EditorAssetLibrary.load_asset('/Game/Blueprints/BP_KillZone')
 blueprint_class = unreal.load_class(None, blueprint.get_path_name())
 
 #Spawn the actor
-new_groundedturret_actor = unreal.EditorLevelLibrary.spawn_actor_from_object(blueprint, spawnLocation)
+new_killzone_actor = unreal.EditorLevelLibrary.spawn_actor_from_object(blueprint, spawnLocation)
 
 # Output the name of the spawned actor (Optional)
-print(f'Spawned actor with name: {new_groundedturret_actor.get_name()}')
+print(f'Spawned actor with name: {new_killzone_actor.get_name()}')

@@ -3,6 +3,7 @@ import unreal
 AssetTools = unreal.AssetToolsHelpers.get_asset_tools()
 MaterialEditLibrary = unreal.MaterialEditingLibrary
 EditorAssetLibrary = unreal.EditorAssetLibrary
+unreal.StaticMeshActor.get_component_by_class()
 
 
 #Creates the master material in the specified folder within the UE5 project
