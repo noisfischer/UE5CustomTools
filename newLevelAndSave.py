@@ -1,17 +1,17 @@
 import unreal
 
-levelTools = unreal.Level
-editorLevelLibrary = unreal.EditorLevelLibrary
-levelSubSys = unreal.get_editor_subsystem(unreal.LevelEditorSubsystem)
+levelTools = unreal.Level  # Provides access to level-related functions.
+editorLevelLibrary = unreal.EditorLevelLibrary  # Provides level editing functionalities.
+levelSubSys = unreal.get_editor_subsystem(unreal.LevelEditorSubsystem)  # Accesses the level editor subsystem.
 
-#init new level
+# Define the name for a new level.
 newLevel = "myNewLevel"
 
-#create new level
+# Create a new level using the Level Editor Subsystem. The new level is created in the "/Game/Levels" directory.
 myNewLevel = levelSubSys.new_level("/Game/Levels/newLevel")
 
-#set level as current level
+# Open the newly created level
 levelSubSys.set_current_level_by_name(newLevel)
 
-#save level
+# Save the new level
 levelSubSys.save_current_level()
