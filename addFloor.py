@@ -1,6 +1,6 @@
 import unreal
 
-# Set the location for the new floor
+# Set the location for the new floor actor at center of level
 location = unreal.Vector(0.0, 0.0, 0.0)  # X, Y, Z coordinates
 
 # Set the rotation for the new floor
