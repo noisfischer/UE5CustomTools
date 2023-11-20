@@ -1,6 +1,6 @@
 import unreal
 
-#define actor location and rotation
+#define Actor location and rotation
 actorLocation = unreal.Vector(0, 0, 0)
 actorRotation = unreal.Rotator(0, 0, 0)
 levelSubsys = unreal.get_editor_subsystem(unreal.LevelEditorSubsystem)
