@@ -1,6 +1,6 @@
 import unreal
 
-# Get the editor utility library, which contains functions for interacting with the editor
+# Get the Editor Utility Library, which contains functions for interacting with the editor
 editor_util = unreal.EditorUtilityLibrary()
 
 # Get the currently selected actors in the editor viewport
