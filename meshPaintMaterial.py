@@ -1,7 +1,10 @@
 import unreal
 
+# Retrieve an instance of the AssetTools class. Provides functions for asset creation, duplication, etc.
 AssetTools = unreal.AssetToolsHelpers.get_asset_tools()
+# Access the MaterialEditingLibrary. Provides functions to edit materials and material instances.
 MaterialEditLibrary = unreal.MaterialEditingLibrary
+# Access the EditorAssetLibrary. Provides functions like loading, saving and modifying assets.
 EditorAssetLibrary = unreal.EditorAssetLibrary
 
 # Create new material
