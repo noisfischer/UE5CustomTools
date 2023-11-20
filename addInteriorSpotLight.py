@@ -1,7 +1,7 @@
 
 import unreal
 
-#Create light
+#Create light actor
 spotLight = unreal.SpotLight
 
 #Get the editor viewport client
