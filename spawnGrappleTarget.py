@@ -13,7 +13,7 @@ cameraRotation = viewport[1]
 #Converts the rotation to a direction vector
 cameraDirection = cameraRotation.get_forward_vector()
 
-#Specifies distance from camera at which to spawn the spot light
+#Specifies distance from camera at which to spawn grapple target
 distance = 500
 
 #Calculates spawn location
