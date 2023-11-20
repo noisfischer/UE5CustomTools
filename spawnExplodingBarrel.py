@@ -24,7 +24,7 @@ blueprint = unreal.EditorAssetLibrary.load_asset('/Game/Blueprints/ExplodingBarr
 blueprint_class = unreal.load_class(None, blueprint.get_path_name())
 
 #Spawn the exploding barrel blueprint
-new_launch_pad = unreal.EditorLevelLibrary.spawn_actor_from_object(blueprint, spawnLocation)
+new_explosive_barrel = unreal.EditorLevelLibrary.spawn_actor_from_object(blueprint, spawnLocation)
 
 # Output the name of the spawned actor (Optional)
-print(f'Spawned actor with name: {new_launch_pad.get_name()}')
+print(f'Spawned actor with name: {new_explosive_barrel.get_name()}')
