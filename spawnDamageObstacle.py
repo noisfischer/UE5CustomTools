@@ -13,7 +13,7 @@ cameraRotation = viewport[1]
 #Converts the rotation to a direction vector
 cameraDirection = cameraRotation.get_forward_vector()
 
-#Specifies distance from camera at which to spawn the spot light
+#Specifies distance from camera at which to spawn the obstacle
 distance = 500
 
 #Calculates spawn location
@@ -23,7 +23,7 @@ spawnLocation = cameraLocation + cameraDirection * distance
 blueprint = unreal.EditorAssetLibrary.load_asset('/Game/Blueprints/BP_DamageObstacle')
 blueprint_class = unreal.load_class(None, blueprint.get_path_name())
 
-#Spawn the actor
+#Spawn the obstacle blueprint
 new_damage_obstacle_actor = unreal.EditorLevelLibrary.spawn_actor_from_object(blueprint, spawnLocation)
 
 # Output the name of the spawned actor (Optional)
