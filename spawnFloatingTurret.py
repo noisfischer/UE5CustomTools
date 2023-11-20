@@ -13,7 +13,7 @@ cameraRotation = viewport[1]
 #Converts the rotation to a direction vector
 cameraDirection = cameraRotation.get_forward_vector()
 
-#Specifies distance from camera at which to spawn the spot light
+#Specifies distance from camera at which to spawn turret
 distance = 500
 
 #Calculates spawn location
@@ -23,8 +23,8 @@ spawnLocation = cameraLocation + cameraDirection * distance
 blueprint = unreal.EditorAssetLibrary.load_asset('/Game/Blueprints/Turret/BP_FloatingTurret')
 blueprint_class = unreal.load_class(None, blueprint.get_path_name())
 
-#Spawn the actor
-new_launch_pad = unreal.EditorLevelLibrary.spawn_actor_from_object(blueprint, spawnLocation)
+#Spawn the floating turret blueprint
+new_floating_turret = unreal.EditorLevelLibrary.spawn_actor_from_object(blueprint, spawnLocation)
 
 # Output the name of the spawned actor (Optional)
-print(f'Spawned actor with name: {new_launch_pad.get_name()}')
+print(f'Spawned actor with name: {new_floating_turret.get_name()}')
