@@ -13,7 +13,7 @@ cameraRotation = viewport[1]
 #Converts the rotation to a direction vector
 cameraDirection = cameraRotation.get_forward_vector()
 
-#Specifies distance from camera at which to spawn the spot light
+#Specifies distance from camera at which to spawn the grounded turret
 distance = 500
 
 #Calculates spawn location
@@ -23,8 +23,8 @@ spawnLocation = cameraLocation + cameraDirection * distance
 blueprint = unreal.EditorAssetLibrary.load_asset('/Game/Blueprints/Turret/BP_GroundedTurret')
 blueprint_class = unreal.load_class(None, blueprint.get_path_name())
 
-#Spawn the actor
-new_groundedturret_actor = unreal.EditorLevelLibrary.spawn_actor_from_object(blueprint, spawnLocation)
+#Spawn the grounded turret
+new_grounded_turret_actor = unreal.EditorLevelLibrary.spawn_actor_from_object(blueprint, spawnLocation)
 
-# Output the name of the spawned actor (Optional)
-print(f'Spawned actor with name: {new_groundedturret_actor.get_name()}')
+# Output the name of the spawned turret (Optional)
+print(f'Spawned actor with name: {new_grounded_turret_actor.get_name()}')
