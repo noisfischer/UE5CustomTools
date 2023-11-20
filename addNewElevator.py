@@ -1,7 +1,7 @@
 
 import unreal
 
-#Create light
+#Create elevator blueprint instance
 elevator = unreal.EditorAssetLibrary.load_blueprint_class('/Game/Blueprints/BP_Elevator')
 
 #Get the editor viewport client
